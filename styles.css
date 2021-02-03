@@ -8,6 +8,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
@@ -17,8 +18,8 @@ body {
 }
 
 #calculator {
+	width: 22em;
 	padding: 1em;
-	width: 20em;
 	margin: 2em auto 0 auto;
 	border-radius: 8px;
 	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
@@ -103,4 +104,24 @@ body {
 .btn-allclear:hover,
 .btn-equal:hover {
 	background-color: var(--primary);
+}
+
+@media (max-width: 380px) {
+	#calculator {
+		width: 18em;
+	}
+
+	#display {
+		width: 16em;
+		height: 5em;
+	}
+
+	.btn {
+		width: 3.7em;
+		height: 3.7em;
+	}
+
+	.btn-equal {
+		width: 7.8em;
+	}
 }
