@@ -4,18 +4,18 @@ const operatorBtn = document.querySelectorAll('.btn-operator');
 const equalBtn = document.getElementById('=');
 const allClearBtn = document.getElementById('allclear');
 const clearBtn = document.getElementById('clear');
-const displayHistory = document.getElementById('history');
-const displayResult = document.getElementById('result');
+const displayHis = document.getElementById('history');
+const displayRes = document.getElementById('result');
 let num1 = [];
 let num2 = [];
 let operator = [];
 let result = [];
 
 const allClear = () => {
-	displayHistory.textContent = '';
-	displayResult.textContent = '';
-	displayResult.style.fontSize = '2.4rem';
-	displayHistory.style.fontSize = '1.4rem';
+	displayHis.textContent = '';
+	displayRes.textContent = '';
+	displayRes.style.fontSize = '2.4rem';
+	displayHis.style.fontSize = '1.4rem';
 	num1 = [];
 	num2 = [];
 	operator = [];
@@ -23,9 +23,9 @@ const allClear = () => {
 };
 
 const clear = () => {
-	let splitHis = displayHistory.textContent.split('');
+	let splitHis = displayHis.textContent.split('');
 	splitHis.pop();
-	displayHistory.textContent = splitHis.join('');
+	displayHis.textContent = splitHis.join('');
 	if (num2.length < 2) {
 		num1.pop();
 	} else if (num2.length >= 2) {
@@ -35,21 +35,21 @@ const clear = () => {
 
 const displayText = (e) => {
 	if (e.target.id !== '=') {
-		displayHistory.textContent += e.target.id;
+		displayHis.textContent += e.target.id;
 	}
-	displayResult.textContent = result;
-	if (displayResult.textContent > 10) {
-		displayResult.style.fontSize = '1em';
+	displayRes.textContent = result;
+	if (displayRes.textContent > 10) {
+		displayRes.style.fontSize = '1em';
 	}
-	if (displayHistory.textContent.length > 35) {
-		displayHistory.textContent = '';
-	} else if (displayHistory.textContent.length > 18) {
-		displayHistory.style.fontSize = '0.7em';
+	if (displayHis.textContent.length > 35) {
+		displayHis.textContent = '';
+	} else if (displayHis.textContent.length > 18) {
+		displayHis.style.fontSize = '0.7em';
 	}
 };
 
 const calculate = () => {
-	if (!num2.length) {
+	if (num2.length) {
 		let num1Join = parseFloat(num1.join(''));
 		let num2Join = parseFloat(num2.join(''));
 		switch (operator[0]) {
@@ -85,12 +85,12 @@ const displayNum = (e) => {
 const displayEqual = (e) => {
 	calculate();
 	displayText(e);
-	displayHistory.textContent = displayResult.textContent;
-	displayResult.textContent = '';
+	displayHis.textContent = displayRes.textContent;
+	displayRes.textContent = '';
 };
 
 const displayOperator = (e) => {
-	let splitHis = displayHistory.textContent.split('');
+	let splitHis = displayHis.textContent.split('');
 	if (
 		splitHis.lastIndexOf('+') !== splitHis.length - 1 &&
 		splitHis.lastIndexOf('-') !== splitHis.length - 1 &&
@@ -98,7 +98,7 @@ const displayOperator = (e) => {
 		splitHis.lastIndexOf('%') !== splitHis.length - 1 &&
 		splitHis.lastIndexOf('/') !== splitHis.length - 1
 	) {
-		displayResult.textContent += e.target.id;
+		displayRes.textContent += e.target.id;
 		calculate();
 		displayText(e);
 		operator.unshift(e.target.id);
@@ -122,8 +122,8 @@ numberBtn.forEach((num) => {
 	});
 });
 
-operatorBtn.forEach((operator) => {
-	operator.addEventListener('click', (e) => {
+operatorBtn.forEach((op) => {
+	op.addEventListener('click', (e) => {
 		displayOperator(e);
 	});
 });
