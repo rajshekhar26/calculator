@@ -6,6 +6,8 @@ const allClearBtn = document.getElementById('allclear');
 const clearBtn = document.getElementById('clear');
 const displayHis = document.getElementById('history');
 const displayRes = document.getElementById('result');
+const numKey = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+const operatorKey = ['+', '-', '*', '/', '%'];
 let num1 = [];
 let num2 = [];
 let operator = [];
@@ -34,8 +36,12 @@ const clear = () => {
 };
 
 const displayText = (e) => {
-	if (e.target.id !== '=') {
-		displayHis.textContent += e.target.id;
+	if (e.target.id !== '=' || e.key !== 'Equal') {
+		if (!e.target.id) {
+			displayHis.textContent += e.key;
+		} else {
+			displayHis.textContent += e.target.id;
+		}
 	}
 	displayRes.textContent = result;
 	if (displayRes.textContent > 10) {
@@ -74,10 +80,18 @@ const calculate = () => {
 };
 
 const displayNum = (e) => {
-	if (operator.length === 0) {
-		num1.push(e.target.id);
-	} else {
-		num2.push(e.target.id);
+	if (!operator.length) {
+		if (!e.target.id) {
+			num1.push(e.key);
+		} else {
+			num1.push(e.target.id);
+		}
+	} else if (operator.length) {
+		if (!e.target.id) {
+			num2.push(e.key);
+		} else {
+			num2.push(e.target.id);
+		}
 	}
 	displayText(e);
 };
@@ -98,20 +112,36 @@ const displayOperator = (e) => {
 		splitHis.lastIndexOf('%') !== splitHis.length - 1 &&
 		splitHis.lastIndexOf('/') !== splitHis.length - 1
 	) {
-		displayRes.textContent += e.target.id;
+		if (!e.target.id) {
+			displayRes.textContent += e.key;
+		} else {
+			displayRes.textContent += e.target.id;
+		}
 		calculate();
 		displayText(e);
-		operator.unshift(e.target.id);
+		if (!e.target.id) {
+			operator.unshift(e.key);
+		} else {
+			operator.unshift(e.target.id);
+		}
 	}
 };
 
 const displayDot = (e) => {
 	if (operator.length === 0 && !num1.includes('.')) {
-		num1.push(e.target.id);
+		if (!e.target.id) {
+			num1.push(e.key);
+		} else {
+			num1.push(e.target.id);
+		}
 		displayText(e);
 	}
 	if (operator.length !== 0 && !num2.includes('.')) {
-		num2.push(e.target.id);
+		if (!e.target.id) {
+			num2.push(e.key);
+		} else {
+			num2.push(e.target.id);
+		}
 		displayText(e);
 	}
 };
@@ -132,3 +162,25 @@ dotBtn.addEventListener('click', displayDot);
 equalBtn.addEventListener('click', displayEqual);
 allClearBtn.addEventListener('click', allClear);
 clearBtn.addEventListener('click', clear);
+
+document.addEventListener('keydown', (e) => {
+	numKey.forEach((num) => {
+		if (e.key === num) {
+			displayNum(e);
+		}
+	});
+});
+
+document.addEventListener('keydown', (e) => {
+	operatorKey.forEach((op) => {
+		if (e.key === op) {
+			displayOperator(e);
+		}
+	});
+});
+
+document.addEventListener('keydown', (e) => {
+	if (e.key === 'Enter') {
+		displayEqual(e);
+	}
+});
