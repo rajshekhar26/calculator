@@ -184,3 +184,9 @@ document.addEventListener('keydown', (e) => {
 		displayEqual(e);
 	}
 });
+
+document.addEventListener('keydown', (e) => {
+	if (e.key === 'Backspace') {
+		clear(e);
+	}
+});
