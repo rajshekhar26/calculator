@@ -1,9 +1,9 @@
 :root {
 	--font: 'Nunito', sans-serif;
-	--bg: #84a98c;
-	--bg-alt: #cad2c5;
-	--primary: #354f52;
-	--secondary: #52796f;
+	--light: #fff;
+	--dark: #333;
+	--dark-alt: #555;
+	--primary: #ff9d72;
 }
 * {
 	margin: 0;
@@ -13,17 +13,19 @@
 
 body {
 	font-family: var(--font);
-	font-weight: 700;
-	background-color: var(--bg);
+	background-color: var(--dark-alt);
+	color: var(--light);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #calculator {
-	width: 22em;
+	background-color: var(--dark);
+	border-radius: 1em;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 	padding: 1em;
-	margin: 2em auto 0 auto;
-	border-radius: 8px;
-	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-	background-color: var(--bg-alt);
 }
 
 #display {
@@ -31,97 +33,61 @@ body {
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: flex-end;
-	width: 20em;
-	height: 8em;
-	margin-bottom: 1em;
-	border-radius: 4px;
-	background-color: var(--secondary);
-	color: var(--bg-alt);
+	height: 10em;
 }
 
 #history {
 	font-size: 1.4rem;
-	padding: 8px;
 }
 
 #result {
 	font-size: 2.4rem;
-	padding: 8px;
 }
 
 #grid {
 	display: grid;
-	grid-gap: 0.3em;
 	grid-template-columns: repeat(4, 1fr);
-	border-radius: 4px;
 }
 
 .btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 4.7em;
-	height: 5em;
-	color: var(--bg-alt);
+	height: 3em;
+	width: 3em;
+	margin: 0.4em;
+	border-radius: 50%;
 	cursor: pointer;
-	border-radius: 4px;
-	transition: transform 0.1s ease;
+	transition: transform 0.1s linear;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
 }
 
-.btn:active {
-	transform: scale(0.95);
-}
-
 .btn-equal {
-	grid-column-start: 3;
+	grid-column-start: 4;
 	grid-column-end: 5;
-	width: 9.8em;
-}
-
-.btn-number,
-.btn-dot {
-	background-color: var(--primary);
 }
 
 .btn-operator,
 .btn-clear,
-.btn-allclear {
-	background-color: var(--secondary);
-}
-
+.btn-allclear,
 .btn-number:hover,
 .btn-dot:hover,
-.btn-equal {
-	background-color: var(--bg);
+.btn-equal:hover {
+	background-color: var(--dark-alt);
+	color: var(--primary);
 }
 
+.btn-equal,
 .btn-operator:hover,
 .btn-clear:hover,
-.btn-allclear:hover,
-.btn-equal:hover {
+.btn-allclear:hover {
 	background-color: var(--primary);
+	color: var(--light);
 }
 
-@media (max-width: 380px) {
-	#calculator {
-		width: 18em;
-	}
-
-	#display {
-		width: 16em;
-		height: 5em;
-	}
-
-	.btn {
-		width: 3.7em;
-		height: 3.7em;
-	}
-
-	.btn-equal {
-		width: 7.8em;
-	}
+.btn:active {
+	transform: translateY(5%);
 }
